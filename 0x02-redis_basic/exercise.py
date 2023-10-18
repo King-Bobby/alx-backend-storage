@@ -6,7 +6,7 @@ Module contains class Cache
 
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable
 
 
 class Cache:
