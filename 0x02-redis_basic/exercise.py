@@ -27,7 +27,7 @@ class Cache:
     def get(
             self,
             key: str,
-            fn: Callable = None) -> Union[str, bytes, int, float]:
+            fn: Callable = None) -> Union[str, bytes, int, float, None]:
         """Check if the key exists in Redis"""
         if self._redis.exists(key):
             data = self._redis.get(key)
