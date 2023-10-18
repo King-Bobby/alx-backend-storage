@@ -7,6 +7,19 @@ Module contains class Cache
 import redis
 import uuid
 from typing import Union, Callable
+from functools import wraps
+
+
+def count_calls(method: Callable) -> Callable:
+    """Counts how many times a methos is called"""
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """Implements the method after increasing its call count"""
+        method_name = method.__qualname__
+        count_key = f"count:{method_name}"
+        self._redis.incr(count_key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
